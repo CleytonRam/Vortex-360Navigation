@@ -51,25 +51,13 @@ public class PanoramaManager : MonoBehaviour
     {
         if (_currentNode == null) return;
 
-        // W ou Seta Cima = tenta ir para o primeiro vizinho (Norte)
         if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
         {
-            MoveToNeighbor(Vector2.up);
+            MoveToNeighbor(Vector2.up);   // Avançar (índice 0)
         }
-        // S ou Seta Baixo = tenta ir para o segundo vizinho (Sul) - só pra testar
         else if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
         {
-            MoveToNeighbor(Vector2.down);
-        }
-        // A ou Esquerda = terceiro vizinho
-        else if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            MoveToNeighbor(Vector2.left);
-        }
-        // D ou Direita = quarto vizinho
-        else if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            MoveToNeighbor(Vector2.right);
+            MoveToNeighbor(Vector2.down); // Voltar (índice 1)
         }
     }
 
@@ -78,25 +66,33 @@ public class PanoramaManager : MonoBehaviour
     {
         if (_currentNode == null || _currentNode.neighbors == null) return;
 
-        // --- LÓGICA TEMPORÁRIA (mas já é um GRAFO!) ---
-        // Como ainda não temos coordenadas geográficas (GPS), 
-        // a tecla W vai pegar o VIZINHO 0, a tecla S o VIZINHO 1, 
-        // a tecla A o VIZINHO 2, e a tecla D o VIZINHO 3.
-        // Depois que baixarmos as 15 imagens, a gente melhora isso com matemática.
+        int count = _currentNode.neighbors.Count;
+        if (count == 0) return;
 
-        int index = 0;
-        if (direction == Vector2.up) index = 0;
-        else if (direction == Vector2.down) index = 1;
-        else if (direction == Vector2.left) index = 2;
-        else if (direction == Vector2.right) index = 3;
+        int index = -1;
 
-        if (index < _currentNode.neighbors.Count)
+        // Lógica para "Frente" (W ou Seta Cima)
+        if (direction == Vector2.up)
+        {
+            index = 0; // Sempre tenta o primeiro vizinho
+        }
+        // Lógica para "Trás" (S ou Seta Baixo)
+        else if (direction == Vector2.down)
+        {
+            // Se tiver 2 ou mais vizinhos, usa o índice 1 (trás)
+            if (count > 1) index = 1;
+            // Se tiver SÓ 1 vizinho (fim da rua), usa o índice 0 (único caminho disponível)
+            else if (count == 1) index = 0;
+        }
+
+        // Executa a navegação
+        if (index >= 0 && index < count)
         {
             ChangeLocation(_currentNode.neighbors[index]);
         }
         else
         {
-            Debug.Log($"Não tem vizinho na direção {direction} (índice {index})");
+            Debug.Log($"Não tem vizinho disponível para a direção {direction}");
         }
     }
 

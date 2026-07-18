@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4254d54e5fe3f154f93edf08e760455d, type: 3}
+  m_Name: Node_4
+  m_EditorClassIdentifier: 
+  panoramaTexture: {fileID: 2800000, guid: 3155df328c9f6e6488a95562c99df8b4, type: 3}
+  minimapPosition: {x: 0.23, y: 0.5}
+  neighbors:
+  - {fileID: 11400000, guid: fdbd596249876cc4b92fb3cb2a97a40e, type: 2}
+  - {fileID: 11400000, guid: 8429194baed26b340a82a8ffbfd40e4a, type: 2}
