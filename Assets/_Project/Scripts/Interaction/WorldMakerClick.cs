@@ -10,6 +10,7 @@ public class WorldMarkerClick : MonoBehaviour
     {
         if (PanoramaManager.Instance != null)
         {
+            AudioManager.Instance?.PlayClick();
             Debug.Log($"Clicou no marcador! Navegando para direção: {direction}");
             PanoramaManager.Instance.MoveToNeighbor(direction);
         }

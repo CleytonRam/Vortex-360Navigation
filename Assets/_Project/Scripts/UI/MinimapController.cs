@@ -11,7 +11,7 @@ public class MinimapControllerGTA : MonoBehaviour
     [Header("Dados")]
     [SerializeField] private List<PanoramaDataSO> allNodes; // Todos os nós na ordem
 
-    private Dictionary<PanoramaDataSO, RectTransform> nodeDots = new Dictionary<PanoramaDataSO, RectTransform>();
+    private Dictionary<PanoramaDataSO, Image> nodeDots = new Dictionary<PanoramaDataSO, Image>();
     private Camera playerCamera;
     private float mapScale;
     private Vector2 centerOffset; // Para centralizar os pontos
@@ -80,6 +80,8 @@ public class MinimapControllerGTA : MonoBehaviour
 
     void DrawAllNodes()
     {
+
+
         // Limpa dots antigos (exceto o playerDot)
         foreach (Transform child in mapContainer)
         {
@@ -100,7 +102,7 @@ public class MinimapControllerGTA : MonoBehaviour
             rect.sizeDelta = new Vector2(8, 8);
 
             // Guarda a referência para atualizar posição depois
-            nodeDots[node] = rect;
+            nodeDots[node] = img;
         }
     }
 
@@ -113,7 +115,7 @@ public class MinimapControllerGTA : MonoBehaviour
         foreach (var kvp in nodeDots)
         {
             PanoramaDataSO node = kvp.Key;
-            RectTransform rect = kvp.Value;
+            RectTransform rect = kvp.Value.rectTransform;
 
             // Diferença em coordenadas do minimap
             Vector2 diff = node.minimapPosition - currentPos;
@@ -121,6 +123,15 @@ public class MinimapControllerGTA : MonoBehaviour
             // Posição local no container (considerando escala e offset)
             Vector2 localPos = diff * mapScale; // já está centralizado
             rect.anchoredPosition = localPos;
+        }
+    }
+
+    // Public methods
+    public void SetNodeColor(PanoramaDataSO node, Color color)
+    {
+        if (nodeDots.ContainsKey(node))
+        {
+            nodeDots[node].color = color;
         }
     }
 }
