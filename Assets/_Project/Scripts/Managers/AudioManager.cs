@@ -10,6 +10,7 @@ public class AudioManager : MonoBehaviour
     [Header("Clips")]
     [SerializeField] private AudioClip clickSFX;
     [SerializeField] private AudioClip collectSFX;
+    [SerializeField] private AudioClip spawnSFX; 
 
     void Awake()
     {
@@ -25,5 +26,10 @@ public class AudioManager : MonoBehaviour
     public void PlayCollect()
     {
         if (collectSFX != null) sfxSource.PlayOneShot(collectSFX);
+    }
+
+    public void PlaySpawn()
+    {
+        if (spawnSFX != null) sfxSource.PlayOneShot(spawnSFX);
     }
 }

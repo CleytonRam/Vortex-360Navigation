@@ -3,11 +3,12 @@ using UnityEngine;
 public class WorldMarkerClick : MonoBehaviour
 {
     [Header("Direção que este marcador representa")]
-    public Vector2 direction; // Ex: Vector2.up para Frente, Vector2.down para Trás
+    public Vector2 direction; 
 
-    // OnMouseDown é chamado automaticamente quando o usuário clica no objeto com o mouse
+   
     void OnMouseDown()
     {
+        if (Time.timeScale == 0f) return;
         if (PanoramaManager.Instance != null)
         {
             AudioManager.Instance?.PlayClick();

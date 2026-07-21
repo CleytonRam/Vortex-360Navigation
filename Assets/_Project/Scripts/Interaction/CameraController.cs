@@ -19,7 +19,7 @@ public class CameraController : MonoBehaviour
 
     void Update()
     {
-        // Rotação (clique esquerdo arrastando)
+        if (Time.timeScale == 0f) return;
         if (Input.GetMouseButton(0))
         {
             float deltaX = Input.GetAxis("Mouse X") * rotationSpeed;
@@ -32,7 +32,6 @@ public class CameraController : MonoBehaviour
             transform.localRotation = Quaternion.Euler(_rotation.y, _rotation.x, 0f);
         }
 
-        // Zoom (scroll do mouse)
         float scroll = Input.GetAxis("Mouse ScrollWheel");
         if (scroll != 0)
         {

@@ -6,10 +6,9 @@ public class PanoramaManager : MonoBehaviour
     public static PanoramaManager Instance { get; private set; }
 
     [Header("Configurações")]
-    [SerializeField] private Material panoramaMaterial; // O material da esfera
-    [SerializeField] private PanoramaDataSO startingNode; // O ponto de partida
+    [SerializeField] private Material panoramaMaterial; 
+    [SerializeField] private PanoramaDataSO startingNode; 
 
-    // Evento para avisar o Minimapa que mudou
     public System.Action<PanoramaDataSO> OnLocationChanged;
 
     private PanoramaDataSO _currentNode;
@@ -28,40 +27,34 @@ public class PanoramaManager : MonoBehaviour
             Debug.LogWarning("Nenhum ponto inicial configurado!");
     }
 
-    // Função principal para trocar de foto
     public void ChangeLocation(PanoramaDataSO targetNode)
     {
         if (targetNode == null) return;
-        if (targetNode == _currentNode) return; // Evita trocar pra mesma foto
+        if (targetNode == _currentNode) return; 
 
-        // Troca a textura no material da esfera
         panoramaMaterial.mainTexture = targetNode.panoramaTexture;
 
-        // Atualiza o nó atual
         _currentNode = targetNode;
 
-        // Dispara o evento (quem escutar vai reagir)
         OnLocationChanged?.Invoke(_currentNode);
 
         Debug.Log($"Chegou em: {targetNode.name}");
     }
 
-    // Navegação por TECLADO (Street View)
     void Update()
     {
-        if (_currentNode == null) return;
+        if (Time.timeScale == 0f || _currentNode == null) return;
 
         if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
         {
-            MoveToNeighbor(Vector2.up);   // Avançar (índice 0)
+            MoveToNeighbor(Vector2.up);
         }
         else if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
         {
-            MoveToNeighbor(Vector2.down); // Voltar (índice 1)
+            MoveToNeighbor(Vector2.down);
         }
     }
 
-    // Função que tenta andar para um vizinho baseado na direção
     public void MoveToNeighbor(Vector2 direction)
     {
         if (_currentNode == null || _currentNode.neighbors == null) return;
@@ -71,21 +64,17 @@ public class PanoramaManager : MonoBehaviour
 
         int index = -1;
 
-        // Lógica para "Frente" (W ou Seta Cima)
         if (direction == Vector2.up)
         {
-            index = 0; // Sempre tenta o primeiro vizinho
+            index = 0; 
         }
-        // Lógica para "Trás" (S ou Seta Baixo)
         else if (direction == Vector2.down)
         {
-            // Se tiver 2 ou mais vizinhos, usa o índice 1 (trás)
+           
             if (count > 1) index = 1;
-            // Se tiver SÓ 1 vizinho (fim da rua), usa o índice 0 (único caminho disponível)
             else if (count == 1) index = 0;
         }
 
-        // Executa a navegação
         if (index >= 0 && index < count)
         {
             ChangeLocation(_currentNode.neighbors[index]);
@@ -96,6 +85,5 @@ public class PanoramaManager : MonoBehaviour
         }
     }
 
-    // Função pública para pegar o nó atual (usado pelo Raycaster)
     public PanoramaDataSO GetCurrentNode() => _currentNode;
 }
