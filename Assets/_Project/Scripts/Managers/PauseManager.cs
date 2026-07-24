@@ -39,8 +39,8 @@ public class PauseManager : MonoBehaviour
         Time.timeScale = 0f; 
         if (pausePanel != null)
             pausePanel.SetActive(true);
+        AudioManager.Instance?.PauseMusic();
 
-        
     }
 
     private void ResumeGame()
@@ -48,6 +48,7 @@ public class PauseManager : MonoBehaviour
         Time.timeScale = 1f; 
         if (pausePanel != null)
             pausePanel.SetActive(false);
+        AudioManager.Instance?.ResumeMusic();
     }
 
     public void ResumeFromButton()

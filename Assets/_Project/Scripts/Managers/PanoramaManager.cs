@@ -29,15 +29,19 @@ public class PanoramaManager : MonoBehaviour
 
     public void ChangeLocation(PanoramaDataSO targetNode)
     {
-        if (targetNode == null) return;
-        if (targetNode == _currentNode) return; 
+        if (targetNode == null || targetNode == _currentNode) return;
 
+        if (StreetViewTransition.Instance != null)
+            StreetViewTransition.Instance.DoStep(() => ApplyTextureChange(targetNode));
+        else
+            ApplyTextureChange(targetNode);
+    }
+
+    private void ApplyTextureChange(PanoramaDataSO targetNode)
+    {
         panoramaMaterial.mainTexture = targetNode.panoramaTexture;
-
         _currentNode = targetNode;
-
         OnLocationChanged?.Invoke(_currentNode);
-
         Debug.Log($"Chegou em: {targetNode.name}");
     }
 

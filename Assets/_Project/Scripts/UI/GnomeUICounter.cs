@@ -16,4 +16,10 @@ public class GnomeUICounter : MonoBehaviour
         if (counterText != null)
             counterText.text = $"Gnomos: {current}/{maxGnomes}";
     }
+
+    public void SetCompletedColor()
+    {
+        if (counterText != null)
+            counterText.color = Color.yellow;
+    }
 }

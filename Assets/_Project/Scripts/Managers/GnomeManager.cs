@@ -97,6 +97,16 @@ public class GnomeManager : MonoBehaviour
         uiCounter?.UpdateCounter(collectedCount);
         Debug.Log($"Gnomo coletado! ({collectedCount}/{maxGnomes})");
 
+        // --- NOVO: Verifica se completou todos ---
+        if (collectedCount >= maxGnomes)
+        {
+            uiMessage?.ShowMessage("Parabéns! Você encontrou todos os gnomos!", true);
+            uiCounter?.SetCompletedColor(); // Muda para dourado
+            AudioManager.Instance?.PlayCollect();
+            return;
+        }
+
+        // Resto do código (limpeza do nó atual e destruição do gnomo)
         if (currentTargetNode != null)
             minimap?.SetNodeColor(currentTargetNode, Color.white);
 
@@ -105,8 +115,6 @@ public class GnomeManager : MonoBehaviour
             Destroy(currentGnomeInstance);
             currentGnomeInstance = null;
         }
-
         currentTargetNode = null;
-
     }
 }
