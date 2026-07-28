@@ -130,7 +130,7 @@ A IA foi extremamente útil para gerar estruturas iniciais e resolver problemas 
 
 ## 🔗 Links
 
-- **Jogo no Itch.io:** [https://cleytonram.itch.io/vortex-teste-tecnico](cleytonram.itch.io/vortex-teste-tecnico) 
+- **Jogo no Itch.io:** [https://cleytonram.itch.io/vortex-teste-tecnico]
 
 ---
 
