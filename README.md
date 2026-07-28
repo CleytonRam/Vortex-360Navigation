@@ -131,7 +131,7 @@ A IA foi extremamente útil para gerar estruturas iniciais e resolver problemas 
 ## 🔗 Links
 
 - **Repositório:** [https://https://github.com/CleytonRam/Vortex-360Navigation](https://https://github.com/CleytonRam/Vortex-360Navigation) 
-- **Jogo no Itch.io:** [https://https://cleytonram.itch.io/vortex-teste-tecnico](https://https://cleytonram.itch.io/vortex-teste-tecnico) 
+- **Jogo no Itch.io:** [https://cleytonram.itch.io/vortex-teste-tecnico](https://cleytonram.itch.io/vortex-teste-tecnico) 
 
 ---
 
